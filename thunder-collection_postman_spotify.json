@@ -1,0 +1,264 @@
+{
+    "info": {
+        "_postman_id": "56ae5744-e224-48d6-9b11-3e9a48d845c4",
+        "name": "spotify",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "user",
+            "item": [
+                {
+                    "name": "register",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:5000/api/user/register",
+                            "path": [
+                                "api",
+                                "user",
+                                "register"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"name\":\"k\",\n  \"email\":\"abd112@gmail.com\",\n  \"password\":\"password\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:5000/api/user/login",
+                            "path": [
+                                "api",
+                                "user",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"email\":\"khushi06062004@gmail.com\",\n  \"password\":\"123\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "my Profile",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:5000/api/user/me",
+                            "path": [
+                                "api",
+                                "user",
+                                "me"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"email\":\"abd112@gmail.com\",\n  \"password\":\"password\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "logout User",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:5000/api/user/logout",
+                            "path": [
+                                "api",
+                                "user",
+                                "logout"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"email\":\"abd112@gmail.com\",\n  \"password\":\"password\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "songs",
+            "item": [
+                {
+                    "name": "create album",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:5000/api/song/album/new",
+                            "path": [
+                                "api",
+                                "song",
+                                "album",
+                                "new"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5000"
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "Top 50 Songs India",
+                                    "type": "default"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "top 50 Songs India",
+                                    "type": "default"
+                                },
+                                {
+                                    "key": "file",
+                                    "src": "f:\\SEM6\\lab\\ADV WEB\\spotify-master\\frontend\\public\\top 50 india.jpeg",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "get all albums",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:5000/api/song/album/all",
+                            "path": [
+                                "api",
+                                "song",
+                                "album",
+                                "all"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5000"
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "Top 50 Songs Global",
+                                    "disabled": true,
+                                    "type": "default"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "top 50 Songs Global",
+                                    "disabled": true,
+                                    "type": "default"
+                                },
+                                {
+                                    "key": "file",
+                                    "src": "f:\\SEM6\\lab\\ADV WEB\\spotify-master\\frontend\\public\\spotify.png",
+                                    "disabled": true,
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "add songs",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:5000/api/song/new",
+                            "path": [
+                                "api",
+                                "song",
+                                "new"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "5000"
+                        },
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "Tauba Tauba",
+                                    "type": "default"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "Tauba Tauba",
+                                    "type": "default"
+                                },
+                                {
+                                    "key": "singer",
+                                    "value": "Karan Ahuja",
+                                    "type": "default"
+                                },
+                                {
+                                    "key": "album",
+                                    "value": "67ed791a7d6bb74ed4cfd5c7",
+                                    "type": "default"
+                                },
+                                {
+                                    "key": "file",
+                                    "src": "f:\\SEM6\\lab\\ADV WEB\\spotify-master\\frontend\\public\\spotify.png",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
