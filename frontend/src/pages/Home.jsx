@@ -5,7 +5,8 @@ import AlbumItem from "../components/AlbumItem";
 import SongItem from "../components/SongItem";
 
 const Home = () => {
-  const { songs, albums } = SongData();
+  const { songs = [], albums = [] } = SongData() || {};
+
   return (
     <Layout>
       <div className="mb-4">
@@ -14,10 +15,10 @@ const Home = () => {
           {albums.map((e, i) => (
             <AlbumItem
               key={i}
-              image={e.thumbnail.url}
-              name={e.title}
-              desc={e.description}
-              id={e._id}
+              image={e?.thumbnail?.url || ""}
+              name={e?.title || "No Title"}
+              desc={e?.description || ""}
+              id={e?._id || ""}
             />
           ))}
         </div>
@@ -29,10 +30,10 @@ const Home = () => {
           {songs.map((e, i) => (
             <SongItem
               key={i}
-              image={e.thumbnail.url}
-              name={e.title}
-              desc={e.description}
-              id={e._id}
+              image={e?.thumbnail?.url || ""}
+              name={e?.title || "No Title"}
+              desc={e?.description || ""}
+              id={e?._id || ""}
             />
           ))}
         </div>

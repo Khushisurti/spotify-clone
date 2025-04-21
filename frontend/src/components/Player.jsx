@@ -14,42 +14,25 @@ const Player = () => {
     prevMusic,
   } = SongData();
 
-  useEffect(() => {
-    fetchSingleSong();
-  }, [selectedSong]);
-
   const audioRef = useRef(null);
-
-  const handlePlayPause = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
-
   const [volume, setVolume] = useState(1);
-
-  const handleVolumeChange = (e) => {
-    const newVolume = e.target.value;
-    setVolume(newVolume);
-    audioRef.current.volume = newVolume;
-  };
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    const audio = audioRef.current;
+    fetchSingleSong();
+  }, [selectedSong]);
 
+  useEffect(() => {
+    const audio = audioRef.current;
     if (!audio) return;
 
     const handleLoadedMetaData = () => {
-      setDuration(audio.duration);
+      setDuration(audio.duration || 0);
     };
 
     const handleTimeUpdate = () => {
-      setProgress(audio.currentTime);
+      setProgress(audio.currentTime || 0);
     };
 
     audio.addEventListener("loadedmetadata", handleLoadedMetaData);
@@ -61,11 +44,33 @@ const Player = () => {
     };
   }, [song]);
 
+  const handlePlayPause = () => {
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleVolumeChange = (e) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+  };
+
   const handleProgressChange = (e) => {
     const newTime = (e.target.value / 100) * duration;
-    audioRef.current.currentTime = newTime;
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime;
+    }
     setProgress(newTime);
   };
+
   return (
     <div>
       {song && (
@@ -73,37 +78,29 @@ const Player = () => {
           <div className="lg:flex items-center gap-4">
             <img
               src={
-                song.thumbnail
-                  ? song.thumbnail.url
-                  : "https://via.placeholder.com/50"
+                song.thumbnail?.url || "https://via.placeholder.com/50"
               }
               className="w-12"
-              alt=""
+              alt="song thumbnail"
             />
             <div className="hidden md:block">
               <p>{song.title}</p>
-              <p>{song.description && song.description.slice(0, 30)}...</p>
+              <p>{song.description ? song.description.slice(0, 30) + "..." : ""}</p>
             </div>
           </div>
 
           <div className="flex flex-col items-center gap-1 m-auto">
-            {song && song.audio && (
-              <>
-                {isPlaying ? (
-                  <audio ref={audioRef} src={song.audio.url} autoPlay />
-                ) : (
-                  <audio ref={audioRef} src={song.audio.url} />
-                )}
-              </>
+            {song?.audio?.url && (
+              <audio ref={audioRef} src={song.audio.url} autoPlay={isPlaying} />
             )}
 
             <div className="w-full flex items-center font-thin text-green-400">
               <input
                 type="range"
-                min={"0"}
-                max={"100"}
+                min="0"
+                max="100"
                 className="progress-bar w-[120px] md:w-[300px]"
-                value={(progress / duration) * 100}
+                value={duration ? (progress / duration) * 100 : 0}
                 onChange={handleProgressChange}
               />
             </div>
@@ -123,13 +120,14 @@ const Player = () => {
               </span>
             </div>
           </div>
+
           <div className="flex items-center">
             <input
               type="range"
               className="w-16 md:w-32"
-              min={"0"}
-              max={"1"}
-              step={"0.01"}
+              min="0"
+              max="1"
+              step="0.01"
               value={volume}
               onChange={handleVolumeChange}
             />
